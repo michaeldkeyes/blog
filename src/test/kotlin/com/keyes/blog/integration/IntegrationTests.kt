@@ -2,6 +2,7 @@ package com.keyes.blog.integration
 
 import com.keyes.blog.TestWithTestContainer
 import com.keyes.blog.dto.RegisterRequest
+import com.keyes.blog.mocks.MockDataFactory
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -12,16 +13,9 @@ import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.boot.test.web.client.postForEntity
 import org.springframework.http.HttpStatus
 import org.springframework.jdbc.core.JdbcTemplate
-import org.springframework.test.context.DynamicPropertyRegistry
-import org.springframework.test.context.DynamicPropertySource
-import org.testcontainers.containers.JdbcDatabaseContainer
-import org.testcontainers.containers.PostgreSQLContainer
-import org.testcontainers.junit.jupiter.Container
-import org.testcontainers.junit.jupiter.Testcontainers
-import org.testcontainers.utility.DockerImageName
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class IntegrationTests @Autowired constructor(
+internal class IntegrationTests @Autowired constructor(
     val restTemplate: TestRestTemplate,
     val jdbc: JdbcTemplate
 ) : TestWithTestContainer() {
@@ -44,7 +38,7 @@ class IntegrationTests @Autowired constructor(
 
     @Test
     fun `should return 200 when user signs up`() {
-        val registerRequest = RegisterRequest("username", "password", "email")
+        val registerRequest = MockDataFactory.createMockRegisterRequest()
 
         val response = restTemplate.postForEntity<Unit>("$baseUrl/signup", registerRequest)
 
