@@ -9,14 +9,14 @@ import javax.validation.constraints.NotEmpty
 data class Post(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long,
+    val id: Long?,
     @NotBlank
-    var title: String,
+    val title: String,
     @Lob
     @NotEmpty
-    var content: String,
-    var createdOn: Instant,
-    var updatedOn: Instant,
+    val content: String,
+    val createdOn: Instant,
+    val updatedOn: Instant,
     @NotBlank
-    var username: String,
+    val username: String,
 )

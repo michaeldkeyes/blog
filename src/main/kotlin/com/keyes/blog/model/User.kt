@@ -7,8 +7,8 @@ import javax.persistence.*
 data class User(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long,
-    var username: String,
-    var password: String,
-    var email: String
+    val id: Long?,
+    val username: String,
+    val password: String,
+    val email: String
 )
